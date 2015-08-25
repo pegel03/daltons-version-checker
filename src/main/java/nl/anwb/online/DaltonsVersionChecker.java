@@ -40,9 +40,10 @@ public class DaltonsVersionChecker {
     private static String[] urlDatas;
 
     public final static void main(String[] args) {
+        // System.setProperty("javax.net.debug", "all");
         try {
             readUrlDataFromConfigFile();
-            initRow();
+            initFirstRow();
             buildReport();
             printReport();
         } catch (DaltonRuntimeException e) {
@@ -54,7 +55,7 @@ public class DaltonsVersionChecker {
     private static void readUrlDataFromConfigFile() throws DaltonRuntimeException {
         InputStream stream = null;
         try {
-            stream = new FileInputStream(".\\versionCheckerConfig.txt");
+            stream = new FileInputStream("." + File.separator + "versionCheckerConfig.txt");
 
             String resource = IOUtils.toString(stream);
             System.out.println("Resources:");
@@ -68,10 +69,12 @@ public class DaltonsVersionChecker {
         }
     }
 
-    private static void initRow() {
+    private static void initFirstRow() {
         StringBuilder row = new StringBuilder();
-        row.append("env").append(SEPARATOR).append("ontw").append(SEPARATOR).append("test").append(SEPARATOR).append("acc")
-                .append(SEPARATOR).append("prod").append(SEPARATOR);
+        row.append("env").append(SEPARATOR);
+        for (String env : envs) {
+            row.append(env).append(SEPARATOR);
+        }
         rows.add(row.toString());
     }
 
@@ -137,8 +140,8 @@ public class DaltonsVersionChecker {
         return response;
     }
 
-    private static URLConnection openConnectionForUrl(String url) throws DaltonRuntimeException,
-            DaltonInvalidResponseException {
+    private static URLConnection openConnectionForUrl(String url)
+            throws DaltonRuntimeException, DaltonInvalidResponseException {
         URL u;
         try {
             u = new URL(url);
@@ -179,15 +182,19 @@ public class DaltonsVersionChecker {
                 int ln = StringUtils.indexOf(responseBody, LINE_FEED);
 
                 String version = StringUtils.substring(responseBody, io + 2, ln);
-                String[] splits = StringUtils.split(version, ',');
-                if (APP.equals(rowCols.get(0))) {
-                    rowCols.set(0, splits[0]);
-                }
+                extracted(responseBody, rowCols, io);
                 rowCols.add(version);
                 // System.out.println("Subs: " + substring);
             }
         }
 
+    }
+
+    private static void extracted(String responseBody, List<String> rowCols, int io) {
+        if (APP.equals(rowCols.get(0))) {
+            String appName = StringUtils.substring(responseBody, 24, io);
+            rowCols.set(0, appName);
+        }
     }
 
     private static void printReport() throws DaltonRuntimeException {
