@@ -40,7 +40,7 @@ public class DaltonsVersionChecker {
     private static String[] urlDatas;
 
     public final static void main(String[] args) {
-        // System.setProperty("javax.net.debug", "all");
+        System.setProperty("javax.net.debug", "all");
         try {
             readUrlDataFromConfigFile();
             initFirstRow();
@@ -78,6 +78,15 @@ public class DaltonsVersionChecker {
         rows.add(row.toString());
     }
 
+    private static void addLastRow() {
+        StringBuilder row = new StringBuilder();
+        row.append("env").append(SEPARATOR);
+        for (String env : envs) {
+            row.append(env).append(SEPARATOR);
+        }
+        rows.add(row.toString());
+    }
+
     private static void buildReport() throws DaltonRuntimeException {
         for (String url : urlDatas) {
             List<String> rowCols = new ArrayList<String>();
@@ -88,6 +97,8 @@ public class DaltonsVersionChecker {
                     String realUrl = StringUtils.replace(url, ENVIRONMENT, env);
                     response = getDataFromUrl(realUrl);
                 } catch (DaltonInvalidResponseException e) {
+                    response = ERR;
+                } catch (DaltonRuntimeException e) {
                     response = ERR;
                 }
                 processAppInfo(response, rowCols);
@@ -182,15 +193,14 @@ public class DaltonsVersionChecker {
                 int ln = StringUtils.indexOf(responseBody, LINE_FEED);
 
                 String version = StringUtils.substring(responseBody, io + 2, ln);
-                extracted(responseBody, rowCols, io);
+                determineAppName(responseBody, rowCols, io);
                 rowCols.add(version);
-                // System.out.println("Subs: " + substring);
             }
         }
 
     }
 
-    private static void extracted(String responseBody, List<String> rowCols, int io) {
+    private static void determineAppName(String responseBody, List<String> rowCols, int io) {
         if (APP.equals(rowCols.get(0))) {
             String appName = StringUtils.substring(responseBody, 24, io);
             rowCols.set(0, appName);
