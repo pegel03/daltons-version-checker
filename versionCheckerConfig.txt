@@ -1,8 +1,8 @@
-http://www-environment.anwb.nl/pois/monitor
+https://www-environment.anwb.nl/pois/monitor
 https://www-environment.anwb.nl/redactieuitjes/monitor,peterderijcke,puNiebi6
 http://webservices-environment.anwb.nl/poi-mongoimport-satellite/monitor
 http://webservices-environment.anwb.nl/vrije-tijd-import-sat/monitor
 https://www-environment.anwb.nl/formulieren/laadpaalformulier/monitor
 https://www-environment.anwb.nl/mijn-anwb/mijn-wegenwacht/monitor
 https://cms-environment.anwb.nl/ebike-beheer/monitor,pglas,EJBB6nI89oOY
-http://www-environment.anwb.nl/fietsen/elektrische-fietsen/vergelijken-en-kopen/monitor
+https://www-environment.anwb.nl/fietsen/elektrische-fietsen/vergelijken-en-kopen/monitor

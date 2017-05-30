@@ -1,9 +1,9 @@
 env	-ontw	-test	-acc		
-poiservice	1.52	1.52	1.51	1.51
-redactieuitjes	2.0.24	2.0.24	2.0.24	2.0.24
-poi-mongoimport-satellite	2.35	2.35	2.35	2.32
-vrije-tijd-import-sat	1.11	1.11	1.11	1.05
-laadpaalform-webapp	0.0.56	0.0.55	0.0.47	0.0.47
-poc-mijnwegenwacht	3.00.02	3.30.02	3.29.15	3.29.15
-ebike-beheer	1.0.6	1.0.6	1.0.6	1.0.6
+poiservice	1.22.0-ES2.2	1.22.0-ES2.2	1.22.0-ES2.2	1.22.0-ES2.2
+redactieuitjes	2.0.26	2.0.26	2.0.26	2.0.26
+poi-mongoimport-satellite	2.26.64	2.26.64	2.26.64	2.26.59
+vrije-tijd-import-sat	1.11	ERR	1.11	1.05
+laadpaalform-webapp	0.0.64	0.0.64	0.0.64	0.0.64
+mijnwegenwacht	ERR	4.4.0-SNAPSHOT	4.3.0	4.3.0
+ebike-beheer	1.0.17	1.0.17	1.0.17	1.0.6
 ebike-webapp	1.0.8	1.0.8	1.0.8	1.0.8
